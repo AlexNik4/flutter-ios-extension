@@ -6,29 +6,38 @@
 //
 
 import NetworkExtension
+import Flutter
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
+    private var flutterEngine: FlutterEngine?
+    private var methodChannel: FlutterMethodChannel?
 
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
-        NSLog("XXXX Tunnel started!!!!!!!!")
+        NSLog("XXXX Tunnel STARTED!!!!!!!!")
         
-        let settings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "1.1.1.1")
-        settings.ipv4Settings = NEIPv4Settings(addresses: ["192.168.1.100"], subnetMasks: ["255.255.255.0"])
-        settings.mtu = 1400
+        // Initialize Flutter engine
+        self.flutterEngine = FlutterEngine(name: "extension_engine", project: nil, allowHeadlessExecution: true)
         
-        self.setTunnelNetworkSettings(settings) { error in
-            if let error = error {
-                completionHandler(error)
-                return
-            }
-            
-            self.reasserting = true
-            completionHandler(nil)
+        guard let engine = self.flutterEngine else {
+            NSLog( "XXXX Failed to create Flutter engine")
+            completionHandler(NSError(domain: "FlutterExtension", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create Flutter engine"]))
+            return
         }
+        
+        NSLog("XXXX Flutter engine created successfully")
+        
+        // Start engine with error handling
+        if !engine.run(withEntrypoint: "main") {
+            NSLog("XXXX Failed to run Flutter engine")
+            completionHandler(NSError(domain: "FlutterExtension", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to run Flutter engine"]))
+            return
+        }
+        
+        NSLog("XXXX Flutter engine started successfully")
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
-        // Add code here to start the process of stopping the tunnel.
+        NSLog("XXXX Tunnel STOPPED!!!!!!!!")
         completionHandler()
     }
     

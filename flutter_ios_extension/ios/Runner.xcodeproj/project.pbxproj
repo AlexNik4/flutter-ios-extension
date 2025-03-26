@@ -16,6 +16,8 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		FADDC9632D947919007E0D81 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADDC9622D947919007E0D81 /* NetworkExtension.framework */; };
 		FADDC96B2D947919007E0D81 /* MyNetworkExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FADDC9602D947919007E0D81 /* MyNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FADDC9852D948E4C007E0D81 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADDC9842D948E4C007E0D81 /* Flutter.xcframework */; };
+		FADDC9862D948E4C007E0D81 /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FADDC9842D948E4C007E0D81 /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FADDC9862D948E4C007E0D81 /* Flutter.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +81,7 @@
 		FADDC9602D947919007E0D81 /* MyNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADDC9622D947919007E0D81 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		FADDC9722D9479C6007E0D81 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		FADDC9842D948E4C007E0D81 /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "../../../../Documents/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADDC9852D948E4C007E0D81 /* Flutter.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +178,7 @@
 		FADDC9612D947919007E0D81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FADDC9842D948E4C007E0D81 /* Flutter.xcframework */,
 				FADDC9622D947919007E0D81 /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
