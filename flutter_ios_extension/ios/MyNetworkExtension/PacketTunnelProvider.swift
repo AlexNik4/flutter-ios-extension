@@ -16,28 +16,50 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         NSLog("XXXX Tunnel STARTED!!!!!!!!")
         
         // Initialize Flutter engine
-        self.flutterEngine = FlutterEngine(name: "extension_engine", project: nil, allowHeadlessExecution: true)
+        self.flutterEngine = FlutterEngine(
+            name: "extension_engine",
+            project: nil,
+            allowHeadlessExecution: true
+        )
         
         guard let engine = self.flutterEngine else {
             NSLog( "XXXX Failed to create Flutter engine")
-            completionHandler(NSError(domain: "FlutterExtension", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create Flutter engine"]))
+            completionHandler(nil)
             return
         }
         
         NSLog("XXXX Flutter engine created successfully")
         
         // Start engine with error handling
-        if !engine.run(withEntrypoint: "main") {
+        if !engine.run(
+            withEntrypoint: "mainHeadless",
+            libraryURI: "package:flutter_ios_extension/headless.dart"
+        ) {
             NSLog("XXXX Failed to run Flutter engine")
-            completionHandler(NSError(domain: "FlutterExtension", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to run Flutter engine"]))
+            completionHandler(nil)
             return
         }
         
         NSLog("XXXX Flutter engine started successfully")
+        
+         self.methodChannel = FlutterMethodChannel(
+             name: "com.example.flutterIosExtension/my_channel",
+             binaryMessenger: engine.binaryMessenger
+         )
+        
+         NSLog("XXXX Sending message to Flutter...")
+        
+         methodChannel?.invokeMethod("getData", arguments: nil) { response in
+             NSLog("XXXX Received: \(response ?? "")")
+         }
+        
+        NSLog("XXXX start completed")
+        completionHandler(nil)
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         NSLog("XXXX Tunnel STOPPED!!!!!!!!")
+        self.flutterEngine?.destroyContext()
         completionHandler()
     }
     

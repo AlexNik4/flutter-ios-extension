@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// Seems like this import is not needed in order to not trim headless.dart. Without this:
+// [ERROR:flutter/shell/common/shell.cc(115)] Dart Error: Dart_LookupLibrary: library 'package:flutter_ios_extension/headless.dart' not found.
+import 'package:flutter_ios_extension/headless.dart';
 
 void main() {
   runApp(const MyApp());

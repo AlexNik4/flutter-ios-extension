@@ -31,19 +31,16 @@ import NetworkExtension
 
             tunnelManager.saveToPreferences { saveError in
                 if let saveError = saveError {
-                    print("XXXX Save error: \(saveError)")
+                    NSLog("XXXX Save error: \(saveError)")
                     return
                 }
                 
                 tunnelManager.loadFromPreferences { _ in
                     do {
-                        try tunnelManager.connection.startVPNTunnel(options: [
-                            "username": "test" as NSObject,
-                            "password": "test" as NSObject
-                        ])
-                        print("XXXX Tunnel started successfully!")
+                        try tunnelManager.connection.startVPNTunnel()
+                        NSLog("XXXX Tunnel started successfully!")
                     } catch {
-                        print("XXXX Start error: \(error)")
+                        NSLog("XXXX Start error: \(error)")
                     }
                 }
             }
